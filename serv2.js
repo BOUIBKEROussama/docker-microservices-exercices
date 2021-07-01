@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 8000
+const port = 5372
 const axios = require('axios');
 
 
@@ -20,18 +20,24 @@ app.get('/', (req, res) => {
         message: 'ping',
       })
 
-      setTimeout(function(){
-        axios.get('http://localhost:8080')
-        .then(response => {
-          console.log(response.data);
-          
-        })
-        .catch(error => {
-          console.log(error);
-        });
-      }, 1000);
+      var adresse;
+      axios.get('http://localhost:8080/serv2').then(res=>{
+        adresse=res.data.message
+        setTimeout(function(){
+            axios.get(adresse)
+            .then(response => {
+              console.log(response.data);
+              
+            })
+            .catch(error => {
+              console.log(error);
+            });
+          }, 1000);
+      })
       
+        
       
+         
     
 })
 
